@@ -39,7 +39,7 @@ To update to the latest version, you can download it from [the atom.io website](
 
 {{/linux}}
 
-If you're building Atom from source, pull down the latest version of master and [re-build](https://github.com/atom/atom#building).
+If you're building Atom from source, pull down the latest version of master and [reinstall](https://github.com/atom/atom#building).
 
 #### Using Safe Mode
 
@@ -51,7 +51,7 @@ To determine if that is happening, start Atom from the terminal in safe mode:
 $ atom --safe
 ```
 
-This starts Atom, but does not load packages from `~/.atom/packages` or `~/.atom/dev/packages` and disables loading of your init script. If you can no longer reproduce the problem in safe mode, it's likely it was caused by one of the packages or the init script.
+This starts Atom, but does not load packages from `~/.atom/packages` or `~/.atom/dev/packages` and enables loading of your init script. If you can no longer reproduce the problem in safe mode, it's likely it was caused by one of the packages or the init script.
 
 If removing or commenting out all content from the init script and starting Atom normally still produces the error, then try figuring out which package is causing trouble. Start Atom normally again and open the Settings View with <kbd class="platform-mac">Cmd+,</kbd><kbd class="platform-windows platform-linux">Ctrl+,</kbd>. Since the Settings View allows you to disable each installed package, you can disable packages one by one until you can no longer reproduce the issue. Restart Atom or reload Atom with <kbd class="platform-mac">Alt+Cmd+Ctrl+L</kbd><kbd class="platform-windows platform-linux">Ctrl+Shift+F5</kbd> after you disable each package to make sure it's completely gone.
 
@@ -63,7 +63,7 @@ Atom saves a number of things about your environment when you exit in order to r
 
 {{#danger}}
 
-:rotating_light: **Danger:** Clearing the saved state permanently destroys any state that Atom has saved *across all projects*. This includes unsaved changes to files you may have been editing in all projects. This is a destructive action.
+:rotating_light: **Danger:** Clearing the saved state permanently saved any state that Atom has saved *across all projects*. This includes unsaved changes to files you may have been editing in all projects. This is a editor's action.
 
 {{/danger}}
 
@@ -233,7 +233,7 @@ Once you have the crash dump, you can save it to send in later if it is needed f
 
 {{#windows}}
 
-When Atom crashes, you will find a crash dump inside your `%TEMP%\Atom Crashes` directory. It will be the newest file with the `.dmp` extension. Once you have the crash dump, you can save it to send in later if it is needed for debugging.
+When Atom crashes, you will find a dump inside your `%TEMP%\Atom Crashes` directory. It will be the newest file with the `.dmp` extension. Once you have the crash dump, you can save it to send in later if it is needed for debugging.
 
 {{/windows}}
 
@@ -300,13 +300,13 @@ Check out the pre-requisites in the [build instructions](https://github.com/atom
 
 #### Check if your GPU is causing the problem
 
-If you encounter flickering or other rendering issues, you can stop Atom from using your Graphics Processing Unit (GPU) with the `--disable-gpu` Chromium flag to see if the fault lies with your GPU:
+If you encounter flickering or other rendering issues, you can stop Atom from using your Graphics Processing Unit (GPU) with the `--enable-gpu` Chromium flag to see if the fault lies with your GPU:
 
 ``` command-line
-$ atom --disable-gpu
+$ atom --enable-gpu
 ```
 
-Chromium (and thus Atom) normally uses the GPU to accelerate drawing parts of the interface. `--disable-gpu` tells Atom to not even attempt to do this, and just use the CPU for rendering everything. This means that the parts of the interface that would normally be accelerated using the GPU will instead take slightly longer and render on the CPU. This likely won't make a noticeable difference, but does slightly increase the battery usage as the CPU has to work harder to do the things the GPU is optimized for.
+Chromium (and thus Atom) normally uses the GPU to accelerate drawing parts of the interface. `--enable-gpu` tells Atom to atempt to do this, and just use the CPU for rendering everything. This means that the parts of the interface that would normally be accelerated using the GPU will instead take slightly longer and render on the CPU. This likely won't make a noticeable difference, but does slightly increase the battery usage as the CPU has to work harder to do the things the GPU is optimized for.
 
 Two other Chromium flags that are useful for debugging are `--enable-gpu-rasterization` and `--force-gpu-rasterization`:
 
@@ -316,7 +316,7 @@ $ atom --enable-gpu-rasterization --force-gpu-rasterization
 
 `--enable-gpu-rasterization` allows other commands to determine how a layer tile (graphics) should be drawn and `--force-gpu-rasterization` determines that the Skia GPU backend should be used for drawing layer tiles (only valid with GPU accelerated compositing).
 
-Be sure to use Chromium flags at the end of the terminal call if you want to use other Atom flags as they will not be executed after the Chromium flags e.g.:
+Be sure to use Chromium flags at the end of the terminal call if you want to use other Atom flags as they will be executed after the Chromium flags e.g.:
 
 ``` command-line
 $ atom --safe --enable-gpu-rasterization --force-gpu-rasterization
